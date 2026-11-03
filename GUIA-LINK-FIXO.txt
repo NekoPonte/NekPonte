@@ -1,0 +1,88 @@
+﻿NEKOPONTE 2.0.1 - GUIA DO LINK FIXO
+
+O link temporario ja funciona sem conta. O modo fixo permite manter, por
+exemplo, https://mesa.seudominio.com em todas as sessoes.
+
+O programa executa seu tunel. Ele nao registra dominios, nao escolhe nomes
+dentro de trycloudflare.com e nao cria automaticamente sua conta Cloudflare.
+
+PRIMEIRA CONFIGURACAO (UMA VEZ)
+
+1. Tenha um dominio e uma conta Cloudflare.
+   Registre um dominio disponivel no provedor que preferir. Dominios
+   normalmente possuem renovacao anual. Adicione o dominio na Cloudflare e
+   conclua a configuracao de DNS indicada por ela. Se voce ja tem dominio,
+   pode usa-lo; nao e necessario registrar outro apenas para esta mesa.
+
+2. Abra o painel Cloudflare e encontre Networking > Tunnels.
+   Algumas interfaces usam Cloudflare One / Zero Trust > Networks >
+   Connectors ou Tunnels. Crie um tunel do tipo Cloudflared, por exemplo
+   NekoPonte. Um tunel dedicado facilita deixar apenas o Foundry publicado.
+
+3. Na etapa de instalar o conector, COPIE o token.
+   O painel mostra um comando semelhante a:
+   cloudflared.exe service install TOKEN_LONGO
+   Voce nao precisa executar esse comando nem instalar um servico.
+   Copie apenas o TOKEN_LONGO ou o comando completo e cole no campo
+   Token do tunel da NekoPonte. O aplicativo extrai o token dos formatos
+   usuais "service install ..." e "--token ...".
+   Use o token desse tunel, nao a senha ou uma chave API da conta.
+
+4. Configure a rota de aplicacao publicada do tunel no painel:
+   Subdominio: mesa (ou foundry, phandelver, etc.)
+   Dominio: o seu dominio
+   Tipo do servico: HTTP
+   URL do servico: 127.0.0.1:30000
+   Nao informe caminho se nao usa configuracoes especiais do Foundry.
+   A combinacao pode resultar em https://mesa.seudominio.com.
+   O subdominio precisa estar disponivel dentro do seu dominio.
+
+5. Abra a NekoPonte e selecione Link fixo.
+   Endereco: https://mesa.seudominio.com
+   Token: o token obtido na etapa 3.
+   Porta: 30000, ou a porta configurada no seu Foundry.
+   Clique em Salvar configuracao.
+
+6. Abra o Foundry e o mundo. Clique em Construir ponte.
+   A NekoPonte registra o conector no tunel, mostra o endereco salvo e faz
+   um teste HTTP do endereco publico. O DNS pode levar algum tempo para
+   propagar na primeira configuracao. Teste tambem pelo celular com dados
+   moveis e com um jogador externo antes de sua sessao.
+
+NAS PROXIMAS SESSOES
+Abra o Foundry, abra a NekoPonte e clique em Construir ponte. O endereco e
+sempre o mesmo enquanto seu dominio, DNS e tunel continuarem configurados.
+Ao clicar em Parar ou fechar a NekoPonte, o tunel e encerrado. O endereco
+continua existindo, mas nao servira a mesa enquanto o conector estiver parado.
+
+SE ALTERAR A PORTA DO FOUNDRY
+Atualize tanto o campo Porta na NekoPonte quanto a URL do servico no painel
+Cloudflare. No modo fixo, o destino e definido pela rota remota: mudar apenas
+o campo local NAO altera a configuracao da Cloudflare.
+
+SE USA UM PREFIXO ESPECIAL
+Em Opcoes avancadas, informe o routePrefix real do Foundry, como /minha-mesa.
+O programa inclui esse caminho na verificacao local e no link compartilhado.
+Nao e um nome personalizado para o dominio: e apenas o caminho do Foundry.
+
+TOKEN SALVO
+O token fica criptografado com a protecao do usuario Windows (DPAPI), no
+arquivo %LOCALAPPDATA%\NekoPonte\configuracao.json. O endereco nao e secreto.
+O token e entregue apenas ao processo cloudflared, por variavel de ambiente;
+nao aparece no comando e nao e enviado ao autor deste programa.
+O campo Esquecer token apaga a copia salva. Ele nao revoga o token na
+Cloudflare. Se precisar revoga-lo ou troca-lo, faca isso no painel dela.
+Outro usuario do Windows ou outro computador precisa informar o token de novo.
+
+SE O TUNEL CONECTA, MAS O LINK NAO ABRE
+- Confira dominio, DNS e rota publicada no painel.
+- Confira se a rota aponta para HTTP 127.0.0.1:PORTA no PC que roda a ponte.
+- Abra o Foundry e o mundo e confira a porta local.
+- Nao confunda o nome do tunel (apenas um rotulo) com o dominio publico.
+- Veja o Diario da ponte. Um teste HTTP positivo nao verifica mapa, tokens,
+  modulos, audio/video ou todos os recursos de uma sessao de RPG.
+
+DOCUMENTACAO OFICIAL
+https://developers.cloudflare.com/tunnel/get-started/
+https://developers.cloudflare.com/tunnel/reference/tunnel-tokens/
+https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/

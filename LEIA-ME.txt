@@ -1,0 +1,98 @@
+﻿NEKOPONTE 2.0.1
+Uma ponte para a sua proxima aventura.
+Windows 10/11 - Windows PowerShell 5.1 e .NET Framework do Windows
+
+COMECAR
+1. Feche a versao antiga da ponte, se estiver aberta.
+2. Extraia o ZIP inteiro para uma pasta permanente no seu computador.
+3. Abra NekoPonte.vbs para iniciar sem janela de terminal.
+   Alternativa: abra Iniciar.cmd, que mostra o terminal para diagnostico.
+4. Abra seu Foundry e inicie o mundo.
+5. Escolha Link temporario, mantenha porta 30000 e clique Construir ponte.
+6. No primeiro uso, aguarde o download do componente oficial da Cloudflare.
+7. Copie o link. Teste no celular com dados moveis, depois envie aos jogadores.
+8. Para terminar, clique em Parar ou feche a janela normalmente.
+
+ICONE E ATALHO
+Abra Criar-atalho.cmd para criar o atalho NekoPonte na area de trabalho,
+com o rosto da personagem como icone. O atalho abre a mesma aplicacao sem
+terminal. Nao mova a pasta depois de criar o atalho; se mover, crie-o de novo.
+O icone tambem aparece na janela. O Windows pode agrupar a janela sob o
+PowerShell na barra de tarefas, conforme as preferencias de agrupamento.
+
+OS DOIS MODOS
+Link temporario: sem conta, endereco aleatorio .trycloudflare.com a cada inicio.
+Link fixo: usa um dominio e tunel que VOCE configurou na sua conta Cloudflare.
+O botao Guia do link fixo abre o passo a passo. O nome do programa nao altera
+as regras de nomes e dominios da Cloudflare.
+
+PERSONALIZACAO
+Usa a imagem fornecida pelo usuario, intacta, como fundo com 17% de opacidade.
+Rosa, lilas, cartoes claros e icone/miniatura do rosto acompanham essa imagem.
+A janela permite redimensionar; uma barra de rolagem preserva acesso aos campos
+em telas menores ou quando o modo fixo esta expandido.
+
+O QUE FICA SALVO
+Porta, prefixo opcional, modo escolhido, endereco fixo e token protegido pelo
+Windows ficam em %LOCALAPPDATA%\NekoPonte. O token usa a protecao do usuario
+Windows (DPAPI), nao uma senha inventada pelo programa. Nao precisa informa-lo
+novamente a cada sessao. O token nao e incluido neste ZIP nem enviado ao autor.
+O botao Esquecer token remove sua copia salva. O tunel remoto nao e apagado.
+
+CONEXAO
+O computador, Foundry, NekoPonte e internet precisam continuar ligados.
+Os jogadores entram pelo navegador, sem Radmin ou conta Cloudflare.
+O upload da sua conexao continua influenciando o carregamento dos mapas.
+O programa nao instala servicos, nao inicia com o Windows e nao altera portas
+do roteador. So executa o conector associado a esta janela.
+O Windows encerra o processo de tunel associado quando a NekoPonte termina,
+inclusive se a janela for encerrada a forca. Isso usa um Job Object local.
+O componente tenta reconectar durante falhas de internet. O link da sessao
+e preservado enquanto o mesmo processo de tunel continuar ativo.
+
+COMPONENTE OFICIAL
+O cloudflared e baixado das releases oficiais Cloudflare no GitHub.
+A integridade e verificada pelo SHA-256 da release ou, se esse digest nao
+estiver disponivel, pela assinatura Authenticode valida da Cloudflare.
+O cache e verificado a cada inicio e atualizado apos 30 dias.
+Nao exige instalar Python, Node.js nem conta no modo temporario.
+Requer acesso ao GitHub, API do GitHub e Cloudflare. O transporte usa HTTP/2
+com TCP de saida na porta 7844, sem depender de UDP/QUIC.
+
+REGISTROS
+Abra Diario da ponte para ver erros. O botao da pasta permite acessar
+%LOCALAPPDATA%\NekoPonte\ponte.log. O log possui rotacao ao atingir 2 MiB.
+O token ativo e ocultado do registro; os logs sao apenas locais.
+
+LIMITACOES
+Esta versao espera HTTP no Foundry local, por exemplo http://127.0.0.1:30000.
+Se configurou HTTPS no proprio Foundry, esse modo de origem nao e suportado.
+O prefixo opcional e para quem usa routePrefix; deixe vazio normalmente.
+O teste do endereco publico e uma verificacao HTTP, nao uma validacao completa
+da mesa. Teste login, mapa, movimentacao e rolagens com um jogador externo.
+O status depende dos eventos do conector; falhas podem levar tempo a aparecer.
+Quick Tunnels sao temporarios, para testes, sem garantia de disponibilidade,
+com limite de 200 requisicoes simultaneas em andamento e sem suporte a SSE.
+
+O link publica a aplicacao Foundry na porta indicada. Configure as senhas
+de administrador e dos jogadores no Foundry. A NekoPonte nao acrescenta login.
+No modo fixo, o tunel pode publicar outras rotas definidas por voce no painel;
+o programa nao modifica nem limita essa configuracao remota.
+
+SE NAO ABRIR
+Confira se extraiu todos os arquivos. Windows Script Host/VBScript pode estar
+desativado em alguns PCs; nesse caso use Iniciar.cmd ou o atalho gerado.
+O iniciador aplica ExecutionPolicy Bypass apenas ao processo local. Nao muda
+permanentemente a politica do Windows e nao altera politicas de empresa.
+
+REMOVER
+Feche o programa, apague a pasta extraida, o atalho e %LOCALAPPDATA%\NekoPonte.
+O Foundry e seus mundos nao sao removidos. A pasta da versao antiga,
+%LOCALAPPDATA%\FoundryPonte, pode ser removida separadamente se nao a usa mais.
+
+VALIDACAO
+Veja VALIDACAO.txt para os testes executados e os limites da verificacao.
+
+Projeto independente, sem afiliacao com Foundry Gaming ou Cloudflare.
+Cloudflared pertence a Cloudflare, distribuido separadamente sob sua licenca:
+https://github.com/cloudflare/cloudflared/blob/master/LICENSE

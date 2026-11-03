@@ -1,0 +1,49 @@
+﻿NEKOPONTE 2.0.1 - VALIDACAO
+02/11/2026
+
+EXECUTADO NESTE AMBIENTE (Linux / PowerShell 7.6.9)
+59 verificacoes automaticas aprovadas em codigo real, com rede simulada
+quando necessario:
+- Sintaxe de todos os scripts PowerShell.
+- Download, cache, atualizacao, hash incorreto e assinatura de fallback.
+- Foundry local desligado e host de download inesperado.
+- Extracao do link temporario.
+- Validacao de porta/caminho, dominio HTTPS e formatos de token.
+- Ocultacao de tokens em registros e ausencia de token na linha de comando.
+- Argumentos diferentes para os modos temporario e fixo.
+- Gravacao atomica das configuracoes.
+- Compilacao C# do controle de vida do processo e layout da estrutura nativa.
+- Eventos reais do manipulador de logs com controles/rede substituidos:
+  registro, perda de uma conexao, perda de todas, reconexao e falha da origem.
+- Endereco fixo preservado e prefixo incluido no link temporario.
+
+Tambem conferidos: XML da interface, nomes dos controles, imagem original
+preservada, tamanhos do icone ICO, codificacao dos scripts e integridade do ZIP.
+
+O QUE AINDA EXIGE WINDOWS E SUA CONTA
+Nao foi possivel executar neste Linux a janela WPF, DPAPI Windows, atalho,
+Job Object nativo, icone na barra de tarefas ou o PowerShell 5.1 real.
+Nao foi criado um tunel real usando um dominio/token do usuario.
+O teste HTTP do endereco publico foi implementado, mas a conexao completa
+Foundry/Cloudflare desta versao precisa ser verificada no PC do usuario.
+
+O usuario ja confirmou a conexao externa com dados moveis da versao 1.0.
+Essa confirmacao nao substitui o teste da interface e das alteracoes da 2.0.
+
+VERIFICACAO PRATICA RECOMENDADA
+1. Feche a versao antiga e abra esta versao.
+2. Teste Link temporario com o Foundry e pelo celular com dados moveis.
+3. Pare e confirme que o link deixa de servir o Foundry.
+4. Crie o atalho e confira o icone da personagem.
+5. Se configurou o dominio/tunel, teste Link fixo, feche e abra novamente
+   para confirmar a recuperacao da configuracao e do token protegido.
+6. Confira login, mapa, rolagem e movimentacao com um jogador externo.
+
+CORRECAO 2.0.1
+Corrigida a ordem de Grid.Background no XAML. A propriedade estava entre
+dois elementos visuais, dividindo a colecao implicita Children e causando
+o erro de abertura relatado no Windows.
+Verificacao de ordem aplicada a todos os elementos da interface.
+Teste de regressao reproduz a estrutura defeituosa e confirma sua rejeicao.
+As 44 verificacoes adicionais de logica e sintaxe foram repetidas e passaram.
+O carregamento WPF real ainda requer confirmacao no Windows.

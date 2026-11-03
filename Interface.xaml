@@ -1,0 +1,114 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NekoPonte" Width="920" Height="790" MinWidth="780" MinHeight="610"
+        WindowStartupLocation="CenterScreen" Background="#FFF7FC"
+        FontFamily="Segoe UI" FontSize="14" Foreground="#503F61">
+  <Window.Resources>
+    <Style TargetType="Button">
+      <Setter Property="Background" Value="#FFF6FC"/><Setter Property="Foreground" Value="#74528B"/>
+      <Setter Property="BorderBrush" Value="#E8CFE7"/><Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Padding" Value="18,11"/><Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
+        <Border x:Name="ButtonBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="12" Padding="{TemplateBinding Padding}">
+          <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <ControlTemplate.Triggers>
+          <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ButtonBorder" Property="Opacity" Value="0.8"/></Trigger>
+          <Trigger Property="IsEnabled" Value="False"><Setter TargetName="ButtonBorder" Property="Opacity" Value="0.4"/></Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style TargetType="TextBox"><Setter Property="Padding" Value="10,8"/><Setter Property="BorderBrush" Value="#E6D7EB"/>
+      <Setter Property="Background" Value="#FDFBFF"/><Setter Property="Foreground" Value="#503F61"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+    <Style TargetType="PasswordBox"><Setter Property="Padding" Value="10,8"/><Setter Property="BorderBrush" Value="#E6D7EB"/>
+      <Setter Property="Background" Value="#FDFBFF"/></Style>
+    <Style TargetType="RadioButton"><Setter Property="Margin" Value="0,0,25,0"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
+  </Window.Resources>
+  <Grid>
+    <Grid.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+      <GradientStop Color="#FFFFF8FC" Offset="0"/><GradientStop Color="#FFF2EFFF" Offset="1"/>
+    </LinearGradientBrush></Grid.Background>
+    <Image x:Name="Backdrop" Stretch="UniformToFill" Opacity="0.17" IsHitTestVisible="False"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Margin="30,25,30,22">
+        <Grid Margin="0,0,0,22">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="100"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+          <Border Width="84" Height="84" CornerRadius="42" Background="White" BorderBrush="#F0CDE1" BorderThickness="3" ClipToBounds="True" HorizontalAlignment="Left">
+            <Image x:Name="Avatar" Width="78" Height="78"><Image.Clip><EllipseGeometry Center="39,39" RadiusX="39" RadiusY="39"/></Image.Clip></Image>
+          </Border>
+          <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock Text="NekoPonte" FontSize="34" FontWeight="Bold" Foreground="#875AA4"/>
+            <TextBlock Text="Uma ponte para a sua próxima aventura." Foreground="#876F94" Margin="0,3,0,0"/>
+          </StackPanel>
+          <Border Grid.Column="2" Background="#DFFFFFFF" CornerRadius="14" Padding="12,7" VerticalAlignment="Top" Margin="0,8,0,0">
+            <TextBlock Text="2.0.1  /  Windows" FontSize="11" Foreground="#A180AD"/>
+          </Border>
+        </Grid>
+        <Border Background="#EDFFFFFF" CornerRadius="20" Padding="24" BorderBrush="#F1DFEF" BorderThickness="1">
+          <StackPanel>
+            <TextBlock Text="Como vamos conectar?" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+              <RadioButton x:Name="TemporaryMode" GroupName="Mode" Content="Link temporário" IsChecked="True"/>
+              <RadioButton x:Name="FixedMode" GroupName="Mode" Content="Link fixo"/>
+            </StackPanel>
+            <TextBlock x:Name="ModeHint" TextWrapping="Wrap" Foreground="#8E7B9A" FontSize="12" Margin="0,0,0,16"
+                       Text="Sem conta. A Cloudflare escolhe um endereço diferente a cada início."/>
+            <StackPanel x:Name="FixedPanel" Visibility="Collapsed" Margin="0,0,0,16">
+              <TextBlock Text="Endereço configurado na Cloudflare" Margin="0,0,0,5"/>
+              <TextBox x:Name="FixedUrl" ToolTip="Exemplo: https://mesa.seudominio.com" Margin="0,0,0,10"/>
+              <TextBlock Text="Token do túnel" Margin="0,0,0,5"/>
+              <PasswordBox x:Name="TokenBox" ToolTip="Token do túnel ou comando de instalacao do painel Cloudflare"/>
+              <TextBlock Text="Salvo com a protecao do seu usuário do Windows. Não é a senha da conta Cloudflare."
+                         FontSize="11" Foreground="#917C9D" TextWrapping="Wrap" Margin="0,5,0,10"/>
+              <WrapPanel>
+                <Button x:Name="SaveConfig" Content="Salvar configuração" Padding="14,8" Margin="0,0,8,0"/>
+                <Button x:Name="ForgetToken" Content="Esquecer token" Padding="14,8"/>
+              </WrapPanel>
+            </StackPanel>
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition Width="120"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+              <StackPanel><TextBlock Text="Porta do Foundry" FontSize="12" Margin="0,0,0,5"/><TextBox x:Name="PortBox" Text="30000" Margin="0,0,12,0" MaxLength="5"/></StackPanel>
+              <TextBlock Grid.Column="1" x:Name="LocalHint" Text="Abra o Foundry e seu mundo antes de iniciar." TextWrapping="Wrap" FontSize="12" Foreground="#947E9F" VerticalAlignment="Bottom" Margin="4,0,16,10"/>
+              <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button x:Name="StartButton" Content="Construir ponte" Background="#BC87C7" Foreground="White" BorderBrush="#BC87C7" FontWeight="SemiBold" Margin="0,0,8,0"/>
+                <Button x:Name="StopButton" Content="Parar" IsEnabled="False"/>
+              </StackPanel>
+            </Grid>
+            <Expander Header="Opções avançadas" FontSize="12" Foreground="#947E9F" Margin="0,15,0,0">
+              <StackPanel Margin="0,10,0,0"><TextBlock Text="Prefixo do Foundry (opcional). Exemplo: /minha-mesa" Margin="0,0,0,5"/>
+                <TextBox x:Name="RouteBox" ToolTip="Deixe vazio se você nao configurou um routePrefix no Foundry."/></StackPanel>
+            </Expander>
+          </StackPanel>
+        </Border>
+        <Border Background="#F2FFFFFF" CornerRadius="20" Padding="24,20" BorderBrush="#F1DFEF" BorderThickness="1" Margin="0,16,0,0">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+              <Ellipse x:Name="StatusDot" Fill="#CDBDD5" Width="9" Height="9" Margin="0,0,9,0"/>
+              <TextBlock x:Name="StatusText" Text="A ponte está descansando." FontWeight="SemiBold" TextWrapping="Wrap"/>
+            </StackPanel>
+            <TextBlock x:Name="StatusDetail" Text="Quando estiver tudo pronto, o link aparece aqui." Foreground="#947E9F" FontSize="12" TextWrapping="Wrap" Margin="18,0,0,14"/>
+            <TextBox x:Name="PublicLink" IsReadOnly="True" FontSize="15" Background="#FAF5FF"/>
+            <WrapPanel Margin="0,12,0,0">
+              <Button x:Name="CopyButton" Content="Copiar link" IsEnabled="False" Margin="0,0,8,0"/>
+              <Button x:Name="OpenButton" Content="Abrir no navegador" IsEnabled="False"/>
+            </WrapPanel>
+          </StackPanel>
+        </Border>
+        <Expander Header="Diário da ponte  /  diagnóstico" Margin="6,16,6,0" Foreground="#886D9B" FontSize="12">
+          <StackPanel Margin="0,10,0,0">
+            <TextBox x:Name="LogBox" Height="145" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                     FontFamily="Consolas" FontSize="11" AcceptsReturn="True"/>
+            <Button x:Name="LogsButton" Content="Abrir pasta dos registros" HorizontalAlignment="Left" Padding="12,6" Margin="0,8,0,0"/>
+          </StackPanel>
+        </Expander>
+        <Grid Margin="4,20,4,0">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+          <TextBlock Text="Mantenha o Foundry e a NekoPonte abertos durante a sessão." FontSize="11" Foreground="#937B9F" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,16,0"/>
+          <Button x:Name="HelpButton" Grid.Column="1" Content="Guia do link fixo" FontSize="12" Padding="12,7"/>
+        </Grid>
+      </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</Window>
